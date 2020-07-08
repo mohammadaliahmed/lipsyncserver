@@ -17,7 +17,9 @@ class CreateSoundsTable extends Migration
             $table->id();
             $table->string('url');
             $table->string('pic_url')->null;
-            $table->string('status')->default('available');
+            $table->string('title');
+            $table->string('duration')->null;
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }
