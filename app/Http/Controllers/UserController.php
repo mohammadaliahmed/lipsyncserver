@@ -24,6 +24,7 @@ class UserController extends Controller
             $user = new User();
             $user->name = $request->name;
             $user->username = $request->username;
+            $user->password = $request->username;
             $user->email = $request->email;
             $user->time = $milliseconds;
             $user->save();
@@ -53,6 +54,7 @@ class UserController extends Controller
                 $user->name = $request->name;
                 $user->email = $request->email;
                 $user->pic_url = $request->pic_url;
+                $user->password = $request->username;
                 $user->username = $request->username;
                 $user->time = $milliseconds;
                 $user->save();
