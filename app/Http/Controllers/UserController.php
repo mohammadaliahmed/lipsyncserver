@@ -50,23 +50,13 @@ class UserController extends Controller
                 ->where('email', $request->email)
                 ->first();
             if ($user == null) {
-                $user = new User();
-                $user->name = $request->name;
-                $user->email = $request->email;
-                $user->pic_url = $request->pic_url;
-                $user->password = $request->username;
-                $user->username = $request->username;
-                $user->time = $milliseconds;
-                $user->save();
-            } else {
-                $user = User::find($user->id);
+                $user = User::find($request->user_id);
                 $user->name = $request->name;
                 $user->email = $request->email;
                 $user->pic_url = $request->pic_url;
                 $user->username = $request->username;
                 $user->time = $milliseconds;
                 $user->update();
-
             }
             return response()->json([
                 'code' => 200, 'message' => "false", 'user' => $user
