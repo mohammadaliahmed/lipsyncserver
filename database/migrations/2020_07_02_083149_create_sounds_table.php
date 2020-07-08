@@ -16,10 +16,10 @@ class CreateSoundsTable extends Migration
         Schema::create('sounds', function (Blueprint $table) {
             $table->id();
             $table->string('url');
-            $table->string('pic_url')->null;
+            $table->string('pic_url')->nullable();
             $table->string('title');
-            $table->string('subtitle')->null;
-            $table->string('duration')->null;
+            $table->string('subtitle')->nullable();
+            $table->string('duration')->nullable();
             $table->string('status')->default('active');
             $table->timestamps();
         });
