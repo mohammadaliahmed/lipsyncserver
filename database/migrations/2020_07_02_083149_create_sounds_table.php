@@ -18,6 +18,7 @@ class CreateSoundsTable extends Migration
             $table->string('url');
             $table->string('pic_url')->null;
             $table->string('title');
+            $table->string('subtitle')->null;
             $table->string('duration')->null;
             $table->string('status')->default('active');
             $table->timestamps();
