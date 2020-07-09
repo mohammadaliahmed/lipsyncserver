@@ -39,12 +39,13 @@ class CommentsController extends Controller
                 'code' => Response::HTTP_FORBIDDEN, 'message' => "Wrong api credentials"
             ], Response::HTTP_OK);
         } else {
+            $milliseconds = round(microtime(true) * 1000);
 
             $comment = new Comments();
             $comment->video_id = $request->video_id;
             $comment->user_id = $request->user_id;
             $comment->content = $request->comment;
-            $comment->time = $request->time;
+            $comment->time = $milliseconds;
             $comment->video_id = $request->video_id;
             $comment->save();
             return response()->json([

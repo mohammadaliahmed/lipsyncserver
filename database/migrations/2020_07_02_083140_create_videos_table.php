@@ -19,7 +19,7 @@ class CreateVideosTable extends Migration
             $table->string('pic_url');
             $table->integer('user_id');
             $table->integer('sound_id');
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->string('status')->default('active');
             $table->bigInteger('time');
             $table->timestamps();

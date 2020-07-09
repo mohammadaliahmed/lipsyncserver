@@ -9,6 +9,7 @@ use App\Videos;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Psr\Log\LoggerInterface;
 
 class VideosController extends Controller
 {
@@ -182,6 +183,16 @@ class VideosController extends Controller
                 ,
             ], 200);
         }
+    }
+
+    public function getAudio()
+    {
+        $ffmpeg = FFMpeg::create();
+
+
+//        $video = $ffmpeg->open( 'video.mp4' );
+        return $ffmpeg;
+
     }
 }
 

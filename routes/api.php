@@ -27,6 +27,7 @@ Route::group(['prefix' => 'video'], function () {
     Route::post('getRecommendedVideos', 'VideosController@getRecommendedVideos');
     Route::post('getUserVideos', 'VideosController@getUserVideos');
     Route::post('getSoundVideos', 'VideosController@getSoundVideos');
+    Route::post('getAudio', 'VideosController@getAudio');
 });
 Route::group(['prefix' => 'user'], function () {
 
