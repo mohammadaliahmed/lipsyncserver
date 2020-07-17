@@ -18,7 +18,7 @@ class SoundsController extends Controller
                 'code' => Response::HTTP_FORBIDDEN, 'message' => "Wrong api credentials"
             ], Response::HTTP_OK);
         } else {
-            $sounds = DB::table('sounds')->orderBy('id', 'desc')->get();
+            $sounds = DB::table('sounds')->orderBy('id', 'desc')->limit(200)->get();
             return response()->json([
                 'code' => Response::HTTP_OK, 'message' => "false", 'sounds' => $sounds
 

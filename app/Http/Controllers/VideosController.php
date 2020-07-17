@@ -6,9 +6,11 @@ use App\Constants;
 use App\Sounds;
 use App\User;
 use App\Videos;
+use ErrorException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 use Psr\Log\LoggerInterface;
 
 class VideosController extends Controller
@@ -94,7 +96,7 @@ class VideosController extends Controller
             ], Response::HTTP_OK);
         } else {
 
-            $videos = DB::table('videos')->orderBy('id', 'DESC')->get();
+            $videos = DB::table('videos')->orderBy('id', 'DESC')->limit(50)->get();
             foreach ($videos as $video) {
                 $comment = DB::table('comments')->where('video_id', $video->id)->count();
                 $video->commentCount = $comment;
@@ -160,7 +162,7 @@ class VideosController extends Controller
             ], Response::HTTP_OK);
         } else {
 
-            $videos = DB::table('videos')->where('sound_id', $request->sound_id)->orderBy('id', 'DESC')->get();
+            $videos = DB::table('videos')->where('sound_id', $request->sound_id)->orderBy('id', 'DESC')->limit(50)->get();
             foreach ($videos as $video) {
                 $comment = DB::table('comments')->where('video_id', $video->id)->count();
                 $video->commentCount = $comment;
@@ -182,6 +184,33 @@ class VideosController extends Controller
                 'code' => 200, 'message' => "false", 'videos' => $videos, "sound" => $sound
                 ,
             ], 200);
+        }
+    }
+
+    protected
+    function deleteVideo(Request $request)
+    {
+        if ($request->api_username != Constants::$API_USERNAME && $request->api_password != Constants::$API_PASSOWRD) {
+            return response()->json([
+                'code' => Response::HTTP_FORBIDDEN, 'message' => "Wrong api credentials"
+            ], Response::HTTP_OK);
+        } else {
+            $video = Videos::find($request->videoId);
+            $sound = Sounds::find($video->sound_id);
+            try {
+                unlink(public_path("videos/" . $video->url));
+            } catch (ErrorException $e) {
+
+            }
+            try {
+                unlink(public_path("sounds/" . $sound->url));
+            } catch (ErrorException $e) {
+
+            }
+            $video->delete();
+            $sound->delete();
+//            return public_path("/videos/") . $video->url;
+
         }
     }
 
